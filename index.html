@@ -2,6 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>טיפול בגורים</title>
     <style>
         /* הגדרות כלליות */
@@ -9,13 +10,13 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 0;
-            background-image: url('dog-background.jpg'); /* כאן אפשר לשים קישור לתמונה של כלב */
+            padding: 4px;
+            background-image: url('dog-background.jpeg'); /* כאן אפשר לשים קישור לתמונה של כלב */
             background-size: cover;
             background-attachment: fixed;
             color: #333;
         }
-        
+
         /* כותרת עליונה */
         h2 {
             text-align: center;
@@ -48,6 +49,46 @@
         li {
             margin-bottom: 10px;
             font-size: 1.1em;
+        }
+
+        /* הגדרות רספונסיביות */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.8em;
+            }
+
+            section {
+                max-width: 90%; /* להקטין את הרוחב כדי להתאים לטלפונים */
+                padding: 15px;
+            }
+
+            h3 {
+                font-size: 1.3em;
+            }
+
+            li {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 1.6em;
+                margin-top: 20px;
+            }
+
+            section {
+                max-width: 95%; /* גמישות רבה יותר למסכים קטנים מאוד */
+                padding: 10px;
+            }
+
+            h3 {
+                font-size: 1.2em;
+            }
+
+            li {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
