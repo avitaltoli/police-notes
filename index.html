@@ -4,143 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>טיפול בגורים</title>
-    <style>
-        /* הגדרות כלליות */
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 6px;
-            background-image: url('dog-background.jpeg'); /* כאן אפשר לשים קישור לתמונה של כלב */
-            background-size: cover;
-            background-position: center; /* מרכז את התמונה */
-            background-attachment: fixed;
-            color: #333;
-        }
-
-        /* כותרת עליונה */
-        h2 {
-            text-align: center;
-            font-size: 2em;
-            color: #4C3F91;
-            margin-top: 30px;
-            text-shadow: 2px 2px #f0f0f0;
-        }
-
-        /* הגדרות לסעיפים */
-        section {
-            background-color: rgba(255, 255, 255, 0.85); /* רקע בהיר עם שקיפות */
-            border-radius: 10px;
-            margin: 20px auto;
-            padding: 20px;
-            max-width: 600px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        h3 {
-            color: #333;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        ul {
-            padding: 0;
-            list-style: none; /* להסרת הנקודות מהרשימה */
-        }
-
-        li {
-            margin-bottom: 10px;
-            font-size: 1.1em;
-            display: flex;
-            align-items: center;
-        }
-
-        li input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        /* הגדרות רספונסיביות */
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 1.8em;
-            }
-
-            section {
-                max-width: 90%; /* להקטין את הרוחב כדי להתאים לטלפונים */
-                padding: 15px;
-            }
-
-            h3 {
-                font-size: 1.3em;
-            }
-
-            li {
-                font-size: 1em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h2 {
-                font-size: 1.6em;
-                margin-top: 20px;
-            }
-
-            section {
-                max-width: 95%; /* גמישות רבה יותר למסכים קטנים מאוד */
-                padding: 10px;
-            }
-
-            h3 {
-                font-size: 1.2em;
-            }
-
-            li {
-                font-size: 0.9em;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <h2>טיפול בגורים</h2>
+<div id="content"></div>
 
-<section>
-    <h3>א) מטלות בוקר (7:30-10:00)</h3>
-    <ul>
-        <li><input type="checkbox" id="morning1"><label for="morning1">שטיפת כלביה</label></li>
-        <li><input type="checkbox" id="morning2"><label for="morning2">הוצאה לטיול</label></li>
-        <li><input type="checkbox" id="morning3"><label for="morning3">האכלת כלבים:</label></li>
-        <ul>
-            <li><input type="checkbox" id="morning6"><label for="morning6">לונה - 300 גרם</label></li>
-            <li><input type="checkbox" id="morning7"><label for="morning7">בל - 250 גרם</label></li>
-            <li><input type="checkbox" id="morning8"><label for="morning8">סגולה - 250 גרם</label></li>
-        </ul>
-    </ul>
-</section>
+<script>
+    const data = {
+        "sections": [
+            {
+                "title": "מטלות בוקר (7:30-10:00)",
+                "tasks": [
+                    {"task": "שטיפת כלביה"},
+                    {"task": "הוצאה לטיול"},
+                    {
+                        "task": "האכלת כלבים",
+                        "subtasks": [
+                            {"task": "לונה - 300 גרם"},
+                            {"task": "בל - 250 גרם"},
+                            {"task": "סגולה - 250 גרם"}
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "מטלות צהרים (12:30-14:00)",
+                "tasks": [
+                    {"task": "שטיפת כלביה"},
+                    {"task": "הוצאה לטיול"}
+                ]
+            },
+            {
+                "title": "מטלות ערב (16:00-18:00)",
+                "tasks": [
+                    {"task": "שטיפת כלביה"},
+                    {"task": "הוצאה לטיול"},
+                    {
+                        "task": "האכלת כלבים",
+                        "subtasks": [
+                            {"task": "בז - 400 גרם"},
+                            {"task": "בלה - 400 גרם"},
+                            {"task": "לונה - 300 גרם"},
+                            {"task": "בל - 250 גרם"},
+                            {"task": "סגולה - 250 גרם"}
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
 
-<section>
-    <h3>ב) מטלות צהרים (12:30-14:00)</h3>
-    <ul>
-        <li><input type="checkbox" id="noon1"><label for="noon1">שטיפת כלביה</label></li>
-        <li><input type="checkbox" id="noon2"><label for="noon2">הוצאה לטיול</label></li>
-    </ul>
-</section>
+    // יצירת תוכן דינמי
+    const contentDiv = document.getElementById('content');
+    data.sections.forEach((section, index) => {
+        const sectionElement = document.createElement('section');
+        const titleElement = document.createElement('h3');
+        titleElement.textContent = section.title;
+        sectionElement.appendChild(titleElement);
 
-<section>
-    <h3>ג) מטלות ערב (16:00-18:00)</h3>
-    <ul>
-        <li><input type="checkbox" id="evening1"><label for="evening1">שטיפת כלביה</label></li>
-        <li><input type="checkbox" id="evening2"><label for="evening2">הוצאה לטיול</label></li>
-        <li><input type="checkbox" id="evening3"><label for="evening3">האכלת כלבים:</label></li>
-        <ul>
-            <li><input type="checkbox" id="evening4"><label for="evening4">בז - 400 גרם</label></li>
-            <li><input type="checkbox" id="evening5"><label for="evening5">בלה - 400 גרם</label></li>
-            <li><input type="checkbox" id="evening6"><label for="evening6">לונה - 300 גרם</label></li>
-            <li><input type="checkbox" id="evening7"><label for="evening7">בל - 250 גרם</label></li>
-            <li><input type="checkbox" id="evening8"><label for="evening8">סגולה - 250 גרם</label></li>
-        </ul>
-    </ul>
-</section>
+        const ulElement = document.createElement('ul');
+        section.tasks.forEach(task => {
+            const liElement = document.createElement('li');
+
+            // אם מדובר ב"האכלת כלבים", נציג אותה ככותרת ובלי checkbox
+            if (task.subtasks) {
+                // הוספת טקסט "האכלת כלבים" עם תתי-סעיפים
+                const subtasksElement = document.createElement('ul');
+                const mainTaskLi = document.createElement('li');
+                mainTaskLi.textContent = task.task;  // "האכלת כלבים"
+                mainTaskLi.style.fontWeight = 'bold'; // בולד עבור כותרת
+                subtasksElement.appendChild(mainTaskLi);
+
+                task.subtasks.forEach(subtask => {
+                    const subLiElement = document.createElement('li');
+                    const subCheckbox = document.createElement('input');
+                    subCheckbox.type = 'checkbox';
+                    subCheckbox.id = `subtask-${index}-${Math.random().toString(36).substr(2, 5)}`;
+
+                    const subLabel = document.createElement('label');
+                    subLabel.htmlFor = subCheckbox.id;
+                    subLabel.textContent = subtask.task;
+
+                    subLiElement.appendChild(subCheckbox);
+                    subLiElement.appendChild(subLabel);
+                    subtasksElement.appendChild(subLiElement);
+                });
+                liElement.appendChild(subtasksElement);
+            } else {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `task-${index}-${Math.random().toString(36).substr(2, 5)}`;
+
+                const label = document.createElement('label');
+                label.htmlFor = checkbox.id;
+                label.textContent = task.task;
+
+                liElement.appendChild(checkbox);
+                liElement.appendChild(label);
+            }
+
+            ulElement.appendChild(liElement);
+        });
+
+        sectionElement.appendChild(ulElement);
+        contentDiv.appendChild(sectionElement);
+    });
+</script>
 
 </body>
 </html>
