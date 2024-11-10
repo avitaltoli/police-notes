@@ -58,7 +58,7 @@
         ]
     };
 
-    // יצירת תוכן דינמי
+   // יצירת תוכן דינמי
     const contentDiv = document.getElementById('content');
     data.sections.forEach((section, index) => {
         const sectionElement = document.createElement('section');
@@ -70,19 +70,19 @@
         section.tasks.forEach(task => {
             const liElement = document.createElement('li');
 
-            // אם מדובר ב"האכלת כלבים", נציג אותה ככותרת ובלי checkbox
             if (task.subtasks) {
                 // הוספת טקסט "האכלת כלבים" עם תתי-סעיפים
                 const subtasksElement = document.createElement('ul');
                 const mainTaskLi = document.createElement('li');
-                mainTaskLi.textContent = task.task;  // "האכלת כלבים"
-                mainTaskLi.style.fontWeight = 'bold'; // בולד עבור כותרת
+                mainTaskLi.textContent = task.task;
+                mainTaskLi.style.fontWeight = 'bold';
                 subtasksElement.appendChild(mainTaskLi);
 
                 task.subtasks.forEach(subtask => {
                     const subLiElement = document.createElement('li');
                     const subCheckbox = document.createElement('input');
                     subCheckbox.type = 'checkbox';
+                    subCheckbox.className = `section-${index}`;
                     subCheckbox.id = `subtask-${index}-${Math.random().toString(36).substr(2, 5)}`;
 
                     const subLabel = document.createElement('label');
@@ -97,6 +97,7 @@
             } else {
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
+                checkbox.className = `section-${index}`;
                 checkbox.id = `task-${index}-${Math.random().toString(36).substr(2, 5)}`;
 
                 const label = document.createElement('label');
@@ -111,6 +112,31 @@
         });
 
         sectionElement.appendChild(ulElement);
+
+        // יצירת כפתור "מטלות בוצעו" עם שם הסעיף
+        // יצירת כפתור "מטלות בוצעו" עם שם הסעיף
+        const button = document.createElement('button');
+        button.textContent = `מטלות ${section.title.split(" ")[1]} בוצעו`; // קביעת כותרת הכפתור לפי שם המקטע
+        button.onclick = () => {
+            const checkboxes = document.querySelectorAll(`.section-${index}`);
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+
+            if (allChecked) {
+                // יצירת קישור WhatsApp עם הודעה מותאמת אישית ומזהה ייחודי
+                const sectionName = section.title.split(" ")[1];
+                const uniqueId = `ID-${Date.now()}-${index}`; // יצירת מזהה ייחודי
+                const message = `כל מטלות ה${sectionName} בוצעו! מזהה: ${uniqueId}`;
+                const phoneNumber = "972505063393";
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+                // פתיחת חלון חדש לשליחת ההודעה בוואטסאפ
+                window.open(whatsappURL, '_blank');
+            } else {
+                alert('לא כל המטלות סומנו, יש לסמן את כולן.');
+            }
+        };
+
+        sectionElement.appendChild(button);
         contentDiv.appendChild(sectionElement);
     });
 </script>
