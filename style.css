@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding: 6px;
+    padding: 4px;
     background-image: url('dog-background.jpeg'); /* כאן אפשר לשים קישור לתמונה של כלב */
     background-size: cover;
     background-position: center; /* מרכז את התמונה */
@@ -78,6 +78,37 @@ button:hover {
 /* שינוי רקע בלחיצה */
 button:active {
     background-color: #2B2159; /* צבע רקע כהה יותר בלחיצה */
+}
+
+/* עיצוב input */
+.message-input {
+    display: block;
+    margin-top: 10px;
+    padding: 8px;
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.message-input:focus {
+    border-color: #4C3F91;
+    outline: none;
+    box-shadow: 0px 4px 8px rgba(76, 63, 145, 0.4);
+}
+
+/* עיצוב אזור הפלט */
+.output-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    color: #333;
+    font-size: 16px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
 }
 
 
