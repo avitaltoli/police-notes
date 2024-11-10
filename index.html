@@ -141,5 +141,77 @@
     });
 </script>
 
+<script>
+    // פונקציה לביצוע ולידציה על תוכן ההודעה
+    function validateMessage(message) {
+        const regex = /כל מטלות ה?(בוקר|צהרים|ערב) בוצעו! מזהה: ID-(\d+)-(\d)/;
+        const match = message.match(regex);
+        let outputMessage = "";
+
+        if (match) {
+            const timeOfDay = match[1];
+            const timestamp = parseInt(match[2], 10);
+            const index = parseInt(match[3], 10);
+
+            const timeOfDayMap = { "בוקר": 0, "צהרים": 1, "ערב": 2 };
+            if (timeOfDayMap[timeOfDay] !== index) {
+                outputMessage = "האינדקס לא תואם את סוג המטלות.";
+            } else {
+                const date = new Date(timestamp);
+
+                // עיצוב התאריך לפורמט dd/mm/yyyy והשעה לפורמט 24 שעות
+                const formattedDate = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+                const formattedTime = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+                outputMessage = `ההודעה אומתה בהצלחה!<br>מטלות: ${timeOfDay}<br>תאריך: ${formattedDate} ${formattedTime}`;
+            }
+        } else {
+            outputMessage = "ההודעה לא תואמת את הפורמט המצופה.";
+        }
+
+        // הצגת התוצאה באזור הפלט
+        document.getElementById('output-container').innerHTML = `<div class="output-message">${outputMessage}</div>`;
+    }
+
+    // ספירת לחיצות ומנגנון טיימר לפתיחת שדה הקלט
+    let clickCount = 0;
+    let clickTimer;
+    let inputExists = false; // משתנה לבדיקת קיום input פתוח
+
+    document.getElementById('main-title').addEventListener('click', () => {
+        clickCount++;
+
+        if (clickTimer) clearTimeout(clickTimer);
+        clickTimer = setTimeout(() => clickCount = 0, 1000);
+
+        if (clickCount === 5 && !inputExists) { // בדיקה אם קיים כבר input
+            clickCount = 0;
+            inputExists = true;
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'הזן כאן את ההודעה';
+            input.className = 'message-input';
+            document.getElementById('main-title').after(input);
+
+            let isRemoved = false; // משתנה לבדיקה אם השדה כבר הוסר
+
+            // הוספת אירוע ללחיצת Enter
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const message = input.value;
+                    validateMessage(message); // הפעלת הפונקציה עם ההודעה
+                    if (!isRemoved) { // בדיקה אם השדה עדיין קיים
+                        input.remove();
+                        inputExists = false;
+                        isRemoved = true;
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+
 </body>
 </html>
